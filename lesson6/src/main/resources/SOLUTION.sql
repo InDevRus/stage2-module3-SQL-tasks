@@ -1,0 +1,4 @@
+select * from payment payment inner join paymenttype payment_type on payment_type.id = payment.type_id where payment_type.name = 'MONTHLY';
+select * from mark mark inner join subject subject on subject.id = mark.subject_id where subject.name = 'Art';
+select * from student student inner join payment payment on student.id = payment.student_id inner join paymenttype payment_type on payment_type.id = payment.type_id where payment_type.name = 'WEEKLY';
+select * from student student inner join mark mark on student.id = mark.student_id inner join subject subject on subject.id = mark.subject_id where subject.name = 'Math';
