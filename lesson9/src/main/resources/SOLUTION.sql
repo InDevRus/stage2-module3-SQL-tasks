@@ -1,0 +1,3 @@
+select * from student student where (select avg(mark.mark) from mark mark where mark.student_id = student.id) > 8;
+select student.id, student.name from student student where (select min(mark.mark) from mark mark where mark.student_id = student.id) > 7;
+select student.id, student.name from student student where (select count(*) from payment payment where year(payment.payment_date) = 2019 and payment.student_id = student.id) > 2;
