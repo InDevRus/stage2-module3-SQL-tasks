@@ -1,0 +1,15 @@
+create local temporary table students_groupnumber_gt_4 (id bigint primary key);
+insert into students_groupnumber_gt_4 select student.id from student student where student.groupnumber > 4;
+delete from payment where exists(select * from students_groupnumber_gt_4 chosen_student where chosen_student.id = payment.student_id);
+delete from mark where exists(select * from students_groupnumber_gt_4 chosen_student where chosen_student.id = mark.student_id);
+delete from student where exists(select * from students_groupnumber_gt_4 chosen_student where chosen_student.id = student.id);
+drop table students_groupnumber_gt_4;
+create local temporary table students_who_have_mark_lt_4 (id bigint primary key);
+insert into students_who_have_mark_lt_4 select student.id from student student where exists(select * from mark mark where mark.mark < 4 and mark.student_id = student.id);
+delete from payment where exists(select * from students_who_have_mark_lt_4 chosen_student where chosen_student.id = payment.student_id);
+delete from mark where exists(select * from students_who_have_mark_lt_4 chosen_student where chosen_student.id = mark.student_id);
+delete from student where exists(select * from students_who_have_mark_lt_4 chosen_student where chosen_student.id = student.id);
+drop table students_who_have_mark_lt_4;
+delete from payment where exists(select * from paymenttype payment_type where payment_type.name = 'DAILY' and payment.type_id = payment_type.id);
+delete from paymenttype where paymenttype.name = 'DAILY';
+delete from mark where mark.mark < 7;
